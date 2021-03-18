@@ -9,6 +9,7 @@ class Game:
 
 	score_pc = score_user = 0
 
+	# Plays a single round: asks user for their move and generates a computer move
 	def play_round(self):
 		print("Press R for Rock, P for Paper or S for Scissors")
 		s = input().casefold()
@@ -21,8 +22,11 @@ class Game:
 		time.sleep(1)
 		self.handle_move(s, self.generate_pc_move(True))
 
+	# Check whether the input moves are valid and determine winner based
+	# on the usual rock, paper, scissors rules (rock beats scissors, scissors beats paper,
+	# and paper beats rock)
 	def handle_move(self, move_a, move_b):
-		win_index = -1
+		win_index = -1 # indicates invalid input move
 
 		options = ["r", "p", "s"] 
 		if move_a not in options or move_b not in options:
@@ -56,6 +60,7 @@ class Game:
 
 		self.process_move_result(win_index)
 
+	# Check outcome, modify scores and write results to console
 	def process_move_result(self, outcome):
 		if outcome == 0:
 			print_bold("You beat the computer!")
@@ -85,6 +90,7 @@ class Game:
 			print(f"Unknown input {input_str}")
 			self.start_game()
 
+	# Randomly generate a pc move
 	def generate_pc_move(self, print_move = True):
 		move = ["r", "p", "s"][randrange(2)]
 		if print_move:
