@@ -74,12 +74,11 @@ class Game:
 	# Starts a new round or quits, printing the final score
 	def start_game(self):
 		print_bold("Press P to play or Q to quit")
-		input_str = input()
-		casefolded = input_str.casefold() # a variant of .lower() which handles edge cases better
+		input_str = input().lower()
 		
-		if casefolded == "p":
+		if input_str == "p":
 			self.play_round()
-		elif casefolded == "q":
+		elif input_str == "q":
 			print(f"Final score: You {self.score_user} - {self.score_pc} Computer")
 			exit()
 		else:
