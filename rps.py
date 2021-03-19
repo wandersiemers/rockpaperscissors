@@ -14,13 +14,22 @@ class Game:
 		print("Press R for Rock, P for Paper or S for Scissors")
 		s = input().casefold()
 
-		print("3...")
-		time.sleep(1)
-		print("2...")
-		time.sleep(1)
-		print("1...")
-		time.sleep(1)
-		self.handle_move(s, self.generate_pc_move(True))
+		if not self.validate_input(s):
+			print(f"Invalid pick '{s}', try again")
+			self.play_round()
+		else:
+			print("3...")
+			time.sleep(1)
+			print("2...")
+			time.sleep(1)
+			print("1...")
+			time.sleep(1)
+			self.handle_move(s, self.generate_pc_move(True))
+
+	def validate_input(self, input):
+		options = ["r", "p", "s"] 
+		return input in options
+
 
 	# Check whether the input moves are valid and determine winner based
 	# on the usual rock, paper, scissors rules (rock beats scissors, scissors beats paper,
@@ -28,10 +37,7 @@ class Game:
 	def handle_move(self, move_a, move_b):
 		win_index = -1 # indicates invalid input move
 
-		options = ["r", "p", "s"] 
-		if move_a not in options or move_b not in options:
-			print(f"Invalid pick '{move_a}', try again")
-			play_round()
+		
 
 		if move_a == "r":
 			if move_b == "r":
@@ -87,7 +93,7 @@ class Game:
 			print(f"Final score: You {self.score_user} - {self.score_pc} Computer")
 			exit()
 		else:
-			print(f"Unknown input {input_str}")
+			print(f"Unknown input '{input_str}'")
 			self.start_game()
 
 	# Randomly generate a pc move
